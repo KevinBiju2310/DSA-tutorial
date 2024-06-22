@@ -107,13 +107,51 @@ class binarySearchTree {
             return this.max(root.right);
         }
     }
+
+    delete(root, value) {
+        if (root === null) {
+            return root;
+        }
+        if (value < root.value) {
+            root.left = this.delete(root.left, value)
+        } else if (value > root.value) {
+            root.right = this.delete(root.right, value)
+        } else {
+            if (root.left === null) {
+                return root.right;
+            } else if (root.right === null) {
+                return root.left;
+            }
+            root.value = this.min(root.right);
+            root.right = this.delete(root.right, root.value)
+        }
+        return root;
+    }
+
+    isBST() {
+        function checkBST(node, min, max) {
+            if(node === null){
+                return true;
+            }
+
+            if((min!=null && node.value<=min)||(max!=null && node.value>=max)){
+                return false;
+            }
+            return checkBST(node.left,min,node.value) && checkBST(node.right,node.value,max);
+        }
+        return checkBST(this.root,null,null)
+    }
 }
 
 const bst = new binarySearchTree()
 
-bst.insert(10)
-bst.insert(15)
-bst.insert(20)
-bst.insert(5)
-console.log(bst.min(bst.root));
-console.log(bst.max(bst.root));
+bst.insert(50)
+bst.insert(30)
+bst.insert(70)
+bst.insert(40)
+// console.log(bst.search(bst.root,25));
+// bst.levelOrder()
+
+console.log(bst.isBST());
+// bst.delete(bst.root,5)
+// bst.levelOrder()
