@@ -128,6 +128,16 @@ class binarySearchTree {
         return root;
     }
 
+    height(root){
+        if(root === null){
+            return -1;
+        }
+
+        let leftTree = this.height(root.left);
+        let rightTree = this.height(root.right);
+        return Math.max(leftTree,rightTree)+1;
+    }
+
     isBST() {
         function checkBST(node, min, max) {
             if(node === null){
@@ -141,6 +151,46 @@ class binarySearchTree {
         }
         return checkBST(this.root,null,null)
     }
+
+    isBalanced(){
+        const height = this.height.bind(this)
+        function checkBalance(node){
+            if(node === null){
+                return true;
+            }
+            let leftHeight = height(node.left);
+            let rightHeight = height(node.right);
+
+            if(Math.abs(leftHeight-rightHeight)<=1 && checkBalance(node.left) && checkBalance(node.right)){
+                return true;
+            }
+            return false;
+        }
+        return checkBalance(this.root);
+    }
+
+
+    isComplete(){
+        if(!this.root){
+            return true;
+        }
+
+        let queue = [this.root];
+        let foundnull = false;
+        while(queue.length){
+            let node = queue.shift();
+            if(node === null){
+                foundnull = true;
+            }else{
+                if(foundnull){
+                    return false;
+                }
+                queue.push(node.left);
+                queue.push(node.right);
+            }
+        }
+        return true;
+    }
 }
 
 const bst = new binarySearchTree()
@@ -151,7 +201,10 @@ bst.insert(70)
 bst.insert(40)
 // console.log(bst.search(bst.root,25));
 // bst.levelOrder()
+console.log(bst.height(bst.root))
 
 console.log(bst.isBST());
+console.log(bst.isBalanced())
+console.log(bst.isComplete())
 // bst.delete(bst.root,5)
 // bst.levelOrder()

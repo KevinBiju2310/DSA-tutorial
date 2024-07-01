@@ -67,10 +67,10 @@ class heap {
             const leftIdx = this.leftChildIdx(index);
             const rightIdx = this.rightChildIdx(index);
             let smallestIdx = index;
-            if(leftIdx<length && this.heap[leftIdx]>this.heap[smallestIdx]){
+            if(leftIdx<length && this.heap[leftIdx]<this.heap[smallestIdx]){
                 smallestIdx = leftIdx;
             }
-            if(rightIdx<length && this.heap[rightIdx]>this.heap[smallestIdx]){
+            if(rightIdx<length && this.heap[rightIdx]<this.heap[smallestIdx]){
                 smallestIdx = rightIdx;
             }
             if(smallestIdx!==index){
@@ -121,18 +121,18 @@ class heap {
 
 const minHeap = new heap();
 
-// minHeap.insert(10)
-// minHeap.insert(20)
-// minHeap.insert(90)
-// minHeap.insert(43)
-// minHeap.insert(88)
-// minHeap.insert(55)
+minHeap.insert(10)
+minHeap.insert(20)
+minHeap.insert(90)
+minHeap.insert(43)
+minHeap.insert(88)
+minHeap.insert(55)
+// minHeap.remove()
+console.log(minHeap);
 
-// console.log(minHeap);
-
-const arr = [10,20,90,43,88,55];
-minHeap.buildheap(arr);
-console.log(minHeap.heap)
+// const arr = [10,20,90,43,88,55];
+// minHeap.buildheap(arr);
+// console.log(minHeap.heap)
 // const arr = [7,3,1,10,49]
 // minHeap.buildheap(arr)
 // console.log(minHeap.heap);
